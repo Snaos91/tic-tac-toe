@@ -1,29 +1,24 @@
-game_motion = 1
-for game_motion in range(1, 10):
-    if game_motion % 2 != 0:
-        print("Ход первого игрока...")
-        player1_line = int(input())
-        player1_column = int(input())
-        if 1 == player1_line:
-            if line1[player1_column] == "-":
-                line1[player1_column] = "x"
+def input_motion():  # ввод хода
+    player_line = int(input("Выберите линию 1 или линию 2 или линию 3 для выполнения хода..."))
+    player_column = int(input("Выберите столбец 1 или столбец 2 или столбец 3 для выполнения хода... "))
+    if 1 <= player_line <= 3 and 1 <= player_column <= 3:
+        return [player_line, player_column]
+    else:
+        print("Ход неверный...")
+        input_motion()
+
+
+def input_motion():
+    while True:
+        try:
+            player_line = int(input("Выберите линию 1 или линию 2 или линию 3 для выполнения хода..."))
+            player_column = int(input("Выберите столбец 1 или столбец 2 или столбец 3 для выполнения хода... "))
+            if 1 <= player_line <= 3 and 1 <= player_column <= 3:
+                return [player_line, player_column]
             else:
-                print("Первый игрок, выбирайте свободное поле! ...")
-                player1_line = int(input())
-                player1_column = int(input())
-        elif player1_line == 2:
-            line2[player1_column] = "x"
-        elif player1_line == 3:
-            line3[player1_column] = "x"
-        game_motion += 1
-    elif game_motion % 2 == 0:
-        print("Ход второго игрока...")
-        player2_line = int(input())
-        player2_column = int(input())
-        if 1 == player2_line:
-            line1[player2_column] = "o"
-        elif player2_line == 2:
-            line2[player2_column] = "o"
-        elif player2_line == 3:
-            line3[player2_column] = "o"
-        game_motion += 1
+                raise ValueError
+        except ValueError:
+            print("Ошибка! Попробуйте снова")
+
+
+print(int_motion())
