@@ -1,10 +1,9 @@
-import snoop
-
 head_line = (" ", "1", "2", "3")
 line1 = ["1", "-", "-", "-"]
 line2 = ["2", "-", "-", "-"]
 line3 = ["3", "-", "-", "-"]
 motion_count = 1
+win = 0
 
 
 def print_playing_field(head_line, line1, line2, line3):  # печать игрового поля
@@ -78,32 +77,46 @@ def motion_players2(head_line, line1, line2, line3):  # ход игрока
     return head_line, line1, line2, line3
 
 
-def winner(head_line, line1, line2, line3):
+def winner(head_line, line1, line2, line3, win):
     if line1[1] == line1[2] == line1[3] == "x" or line2[1] == line2[2] == line2[3] == "x" or line3[1] == line3[2] == \
             line3[3] == "x" or line1[1] == line2[1] == line3[1] == "x" or line1[2] == line2[2] == line3[2] == "x" or \
             line1[3] == line2[3] == line3[3] == "x" or line1[1] == line2[2] == line3[3] == "x" or line1[3] == line2[2] \
             == line3[1] == "x":
-        print("Выиграл первый игрок!")
-    elif line1[1] == line1[2] == line1[3] == "x" or line2[1] == line2[2] == line2[3] == "x" or line3[1] == line3[2] == \
-            line3[3] == "x" or line1[1] == line2[1] == line3[1] == "x" or line1[2] == line2[2] == line3[2] == "x" or \
-            line1[3] == line2[3] == line3[3] == "x" or line1[1] == line2[2] == line3[3] == "x" or line1[3] == line2[2] \
-            == line3[1] == "x":
-        print("Выиграл второй игрок!")
+        win = 1
+        return win
+    elif line1[1] == line1[2] == line1[3] == "o" or line2[1] == line2[2] == line2[3] == "o" or line3[1] == line3[2] == \
+            line3[3] == "o" or line1[1] == line2[1] == line3[1] == "o" or line1[2] == line2[2] == line3[2] == "o" or \
+            line1[3] == line2[3] == line3[3] == "o" or line1[1] == line2[2] == line3[3] == "o" or line1[3] == line2[2] \
+            == line3[1] == "o":
+        win = 2
+        return win
     else:
-        print("Ничья!")
+        win = 0
+        return win
 
 
 print_playing_field(head_line, line1, line2, line3)
-for motion_count in range(1, 9 + 1):
-    if motion_count % 2 != 0:
-        print("Ход первого игрока!")
-        motion_players1(head_line, line1, line2, line3)
-        print_playing_field(head_line, line1, line2, line3)
-        motion_count += 1
-    else:
-        print("Ход второго игрока!")
-        motion_players2(head_line, line1, line2, line3)
-        print_playing_field(head_line, line1, line2, line3)
-        motion_count += 1
-
-winner(head_line, line1, line2, line3)
+while True:
+    for motion_count in range(1, 9 + 1):
+        if motion_count % 2 != 0:
+            print("Ход первого игрока!")
+            motion_players1(head_line, line1, line2, line3)
+            print_playing_field(head_line, line1, line2, line3)
+            motion_count += 1
+        elif motion_count % 2 == 0:
+            print("Ход второго игрока!")
+            motion_players2(head_line, line1, line2, line3)
+            print_playing_field(head_line, line1, line2, line3)
+            motion_count += 1
+        winner(head_line, line1, line2, line3, win)
+        win = winner(head_line, line1, line2, line3, win)
+        if motion_count == 9:
+            print("Ничья!")
+            break
+        if win == 1:
+            print("Победа первого игрока!")
+            break
+        elif win == 2:
+            print("Победа второго игрока!")
+            break
+    break
