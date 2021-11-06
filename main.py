@@ -1,9 +1,9 @@
-head_line = (" ", "1", "2", "3")
+head_line = (" ", "1", "2", "3")  # Игровое поле
 line1 = ["1", "-", "-", "-"]
 line2 = ["2", "-", "-", "-"]
 line3 = ["3", "-", "-", "-"]
-motion_count = 1
-win = 0
+motion_count = 1                  # Счетчик ходов
+win = 0                           # Определение победителя
 
 
 def print_playing_field(head_line, line1, line2, line3):  # печать игрового поля
@@ -14,7 +14,7 @@ def print_playing_field(head_line, line1, line2, line3):  # печать игр�
     return head_line, line1, line2, line3
 
 
-def input_motion():
+def input_motion():                             # Ввод хода, с проверкой на ошибки
     while True:
         try:
             player_line = int(input("Выберите линию 1 или линию 2 или линию 3 для выполнения хода..."))
@@ -27,11 +27,11 @@ def input_motion():
             print("Ошибка! Попробуйте снова")
 
 
-def print_error():
+def print_error():                             # Печать ошибки
     print("Ход неверный...")
 
 
-def motion_players1(head_line, line1, line2, line3):  # ход игрока
+def motion_players1(head_line, line1, line2, line3):  # ход игрока 1
     list_motion = input_motion()
     if list_motion[0] == 1:
         if line1[list_motion[1]] == "-":
@@ -54,7 +54,7 @@ def motion_players1(head_line, line1, line2, line3):  # ход игрока
     return head_line, line1, line2, line3
 
 
-def motion_players2(head_line, line1, line2, line3):  # ход игрока
+def motion_players2(head_line, line1, line2, line3):  # ход игрока 2
     list_motion = input_motion()
     if list_motion[0] == 1:
         if line1[list_motion[1]] == "-":
@@ -77,7 +77,7 @@ def motion_players2(head_line, line1, line2, line3):  # ход игрока
     return head_line, line1, line2, line3
 
 
-def winner(head_line, line1, line2, line3, win):
+def winner(head_line, line1, line2, line3, win):        # проверка победителя
     if line1[1] == line1[2] == line1[3] == "x" or line2[1] == line2[2] == line2[3] == "x" or line3[1] == line3[2] == \
             line3[3] == "x" or line1[1] == line2[1] == line3[1] == "x" or line1[2] == line2[2] == line3[2] == "x" or \
             line1[3] == line2[3] == line3[3] == "x" or line1[1] == line2[2] == line3[3] == "x" or line1[3] == line2[2] \
@@ -95,7 +95,7 @@ def winner(head_line, line1, line2, line3, win):
         return win
 
 
-print_playing_field(head_line, line1, line2, line3)
+print_playing_field(head_line, line1, line2, line3)     # Основная программа
 while True:
     for motion_count in range(1, 9 + 1):
         if motion_count % 2 != 0:
